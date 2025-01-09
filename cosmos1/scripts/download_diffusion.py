@@ -81,6 +81,10 @@ def main(args):
 
     download_kwargs = dict(allow_patterns=["README.md", "model.pt", "config.json", "*.jit"])
 
+    # Add this line to check for existing files before download
+    # Check if files already exist before downloading
+    download_kwargs['resume_download'] = True
+
     # Download the requested Autoregressive models
     for size in args.model_sizes:
         for model_type in args.model_types:
@@ -107,6 +111,7 @@ def main(args):
             repo_id=repo_id,
             local_dir=str(local_dir),
             local_dir_use_symlinks=False,
+            resume_download=True,  # Add this to check for existing files
         )
 
     if "Video2World" in args.model_types:
